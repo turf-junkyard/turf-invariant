@@ -20,6 +20,6 @@
   },
   "devDependencies": {
     "dox": "^0.6.1",
-    "doxme": "^1.4.2"
+    "doxme": "^1.4.3"
   }
 }
