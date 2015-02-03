@@ -67,6 +67,6 @@ function collectionOf(value, types, name) {
         throw new Error('Invalid input to ' + name + ', FeatureCollection required');
     }
     for (var i = 0; i < value.features.length; i++) {
-        geojsonType(value.features[i].geometry, types, name);
+        featureOf(value.features[i], types, name);
     }
 }
