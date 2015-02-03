@@ -32,11 +32,13 @@ function geojsonType(value, type, name) {
  * @throws Error if value is not the expected type.
  */
 function featureOf(value, type, name) {
-    if (!name) throw new Error('.collectionOf() requires a name');
+    if (!name) throw new Error('.featureOf() requires a name');
     if (!value || value.type !== 'Feature' || !value.geometry) {
         throw new Error('Invalid input to ' + name + ', Feature with geometry required');
     }
-    geojsonType(value.geometry, type, name);
+    if (!value.geometry || value.geometry.type !== type) {
+        throw new Error('Invalid input to ' + name + ': must be a ' + type + ', given ' + value.geometry.type);
+    }
 }
 
 /**
@@ -55,6 +57,12 @@ function collectionOf(value, type, name) {
         throw new Error('Invalid input to ' + name + ', FeatureCollection required');
     }
     for (var i = 0; i < value.features.length; i++) {
-        featureOf(value.features[i], type, name);
+        var feature = value.features[i];
+        if (!feature || feature.type !== 'Feature' || !feature.geometry) {
+            throw new Error('Invalid input to ' + name + ', Feature with geometry required');
+        }
+        if (!feature.geometry || feature.geometry.type !== type) {
+            throw new Error('Invalid input to ' + name + ': must be a ' + type + ', given ' + feature.geometry.type);
+        }
     }
 }
