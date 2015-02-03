@@ -1,19 +1,22 @@
 var isArray = require('is-array');
 
-module.exports.is = is;
+module.exports.geojsonType = geojsonType;
+module.exports.collectionOf = collectionOf;
+module.exports.featureOf = featureOf;
 
 /**
- * Enforce expectations about types of inputs for Turf.
+ * Enforce expectations about types of GeoJSON objects for Turf.
  *
- * @alias is
- * @param {*} value any kind of value, including {@link GeoJSON} objects
+ * @alias geojsonType
+ * @param {GeoJSON} value any GeoJSON object
  * @param {(Array<String>|String)} types expected GeoJSON type or types
  * @param {String} name name of calling function
  * @throws Error if value is not the expected type.
  */
-function is(value, types, name) {
+function geojsonType(value, types, name) {
     if (!name) throw new Error('.is() requires a name');
     if (!value) throw new Error('Invalid input to ' + name);
+
     if (typeof types === 'string') {
         if (!value || value.type !== types) {
             throw new Error(
@@ -27,5 +30,43 @@ function is(value, types, name) {
         }
     } else {
         throw new Error('argument to .is() must be a string or array of strings');
+    }
+}
+
+/**
+ * Enforce expectations about types of {@link Feature} inputs for Turf.
+ * Internally this uses {@link geojsonType} to judge geometry types.
+ *
+ * @alias featureOf
+ * @param {FeatureCollection} featurecollection a featurecollection for which features will be judged
+ * @param {(Array<String>|String)} types expected GeoJSON type or types
+ * @param {String} name name of calling function
+ * @throws Error if value is not the expected type.
+ */
+function featureOf(value, types, name) {
+    if (!name) throw new Error('.collectionOf() requires a name');
+    if (!value || value.type !== 'Feature' || !value.geometry) {
+        throw new Error('Invalid input to ' + name + ', Feature with geometry required');
+    }
+    geojsonType(value.geometry, types, name);
+}
+
+/**
+ * Enforce expectations about types of {@link FeatureCollection} inputs for Turf.
+ * Internally this uses {@link geojsonType} to judge geometry types.
+ *
+ * @alias collectionOf
+ * @param {FeatureCollection} featurecollection a featurecollection for which features will be judged
+ * @param {(Array<String>|String)} types expected GeoJSON type or types
+ * @param {String} name name of calling function
+ * @throws Error if value is not the expected type.
+ */
+function collectionOf(value, types, name) {
+    if (!name) throw new Error('.collectionOf() requires a name');
+    if (!value || value.type !== 'FeatureCollection') {
+        throw new Error('Invalid input to ' + name + ', FeatureCollection required');
+    }
+    for (var i = 0; i < value.features.length; i++) {
+        geojsonType(value.features[i].geometry, types, name);
     }
 }
