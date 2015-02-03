@@ -20,7 +20,7 @@ Enforce expectations about types of GeoJSON objects for Turf.
 
 
 
-### `featureOf(featurecollection, types, name)`
+### `featureOf(feature, types, name)`
 
 Enforce expectations about types of Feature inputs for Turf.
 Internally this uses geojsonType to judge geometry types.
@@ -28,11 +28,11 @@ Internally this uses geojsonType to judge geometry types.
 
 ### Parameters
 
-| parameter           | type                  | description                                           |
-| ------------------- | --------------------- | ----------------------------------------------------- |
-| `featurecollection` | FeatureCollection     | a featurecollection for which features will be judged |
-| `types`             | Array.<String>,String | expected GeoJSON type or types                        |
-| `name`              | String                | name of calling function                              |
+| parameter | type                  | description                              |
+| --------- | --------------------- | ---------------------------------------- |
+| `feature` | Feature               | a feature with an expected geometry type |
+| `types`   | Array.<String>,String | expected GeoJSON type or types           |
+| `name`    | String                | name of calling function                 |
 
 
 

@@ -38,7 +38,7 @@ function geojsonType(value, types, name) {
  * Internally this uses {@link geojsonType} to judge geometry types.
  *
  * @alias featureOf
- * @param {FeatureCollection} featurecollection a featurecollection for which features will be judged
+ * @param {Feature} feature a feature with an expected geometry type
  * @param {(Array<String>|String)} types expected GeoJSON type or types
  * @param {String} name name of calling function
  * @throws Error if value is not the expected type.
