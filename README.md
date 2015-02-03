@@ -1,5 +1,7 @@
 # turf-invariant
 
+[![build status](https://secure.travis-ci.org/Turfjs/turf-invariant.png)](http://travis-ci.org/Turfjs/turf-invariant)
+
 enforce expectations about inputs to turf
 
 
