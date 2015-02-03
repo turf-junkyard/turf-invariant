@@ -4,15 +4,11 @@ var test = require('tape'),
 test('invariant#geojsonType', function(t) {
     t.throws(function() {
         invariant.geojsonType();
-    }, /requires a name/, '.geojsonType() name requirement');
-
-    t.throws(function() {
-        invariant.geojsonType(undefined, [], 'myfn');
-    }, /Invalid input to myfn/, 'undefined value');
+    }, /type and name required/, '.geojsonType() name requirement');
 
     t.throws(function() {
         invariant.geojsonType({}, undefined, 'myfn');
-    }, /string or array of strings/, 'invalid types');
+    }, /type and name required/, 'invalid types');
 
     t.throws(function() {
         invariant.geojsonType({
@@ -27,20 +23,6 @@ test('invariant#geojsonType', function(t) {
             coordinates: [0, 0]
         }, 'Point', 'myfn');
     }, 'valid geometry');
-
-    t.doesNotThrow(function() {
-        invariant.geojsonType({
-            type: 'Point',
-            coordinates: [0, 0]
-        }, ['Polygon', 'Point'], 'myfn');
-    }, 'valid geometry in array');
-
-    t.throws(function() {
-        invariant.geojsonType({
-            type: 'Point',
-            coordinates: [0, 0]
-        }, ['LineString', 'Polygon'], 'myfn');
-    }, 'invalid geometry in array');
 
     t.end();
 });
