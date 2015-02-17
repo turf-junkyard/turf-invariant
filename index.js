@@ -1,5 +1,3 @@
-var isArray = require('is-array');
-
 module.exports.geojsonType = geojsonType;
 module.exports.collectionOf = collectionOf;
 module.exports.featureOf = featureOf;

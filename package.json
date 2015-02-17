@@ -23,6 +23,5 @@
     "doxme": "^1.4.3"
   },
   "dependencies": {
-    "is-array": "^1.0.1"
   }
 }
