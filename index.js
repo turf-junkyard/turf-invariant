@@ -25,7 +25,7 @@ function geojsonType(value, type, name) {
  *
  * @alias featureOf
  * @param {Feature} feature a feature with an expected geometry type
- * @param {string} types expected GeoJSON type
+ * @param {string} type expected GeoJSON type
  * @param {String} name name of calling function
  * @throws Error if value is not the expected type.
  */
